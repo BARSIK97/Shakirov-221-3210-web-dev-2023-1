@@ -1,52 +1,73 @@
 <!DOCTYPE html>
 <html lang="'ru">
     <head>
-    <meta charset="utf-8">
-    <title>Веб-разработчик</title>
-    <link rel="stylesheet" href="style.css">
+        <meta charset="utf-8">
+        <title>Веб-разработчик</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
 <body>
     <header class="header">
         <div class="container">
             <nav class="main-menu">
                 <ul>
-                    <li><a href="#about">О мне</a></li>
+                    <li><a href="#about">Обо мне</a></li>
                     <li><a href="#skills">Навыки</a></li>
                     <li><a href="#technologies">Технологии</a></li>
                 </ul>
             </nav>
+            <div class="text-center">
+                <h1 class="text-upper">
+                    Шакиров Раиль Линарович
+                </h1>
+                <p>
+                    Мой первый сайт
+                </p>
+                <a class="btn-white btn" href="mailto:shakirovrl97@gmail.com">
+                    Написать мне
+                </a>
+            </div>
         </div> 
     </header>
 
     <main>
         <div class="container">
             <section id="about">
-                <h2>О мне</h2>
-    
+                <h2>Обо мне</h2>
+                <figure class="avatar">
+                    <img src="images/кот.png" alt="person">
+                </figure>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae nihil, quisquam delectus, quo, harum neque excepturi voluptate ut earum quos libero. Accusamus nisi sed harum labore sapiente esse placeat?
-                </p>    
+                    Я студент 2-ого курса Московского Политехнического университета. Учусь на фаультете информационных технологий по специальности информатика и вычислительная техника.
+                </p>
+                <a class="btn" href="about.html">Подробнее</a>
             </section>
     
             <section id="skills">
                 <h2>Навыки</h2>
-    
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae nihil, quisquam delectus, quo, harum neque excepturi voluptate ut earum quos libero. Accusamus nisi sed harum labore sapiente esse placeat?
-                </p>    
+                    Изучаю языки такие языки программирования как: C++, HTML, CSS.
+                    Умею работать с базами данных в PostgreSQL.
+                </p>
+                <a class="btn" href="skills.html">Подробнее</a>
             </section>
     
             <section id="technologies">
                 <h2>Технологии</h2>
     
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus vitae nihil, quisquam delectus, quo, harum neque excepturi voluptate ut earum quos libero. Accusamus nisi sed harum labore sapiente esse placeat?
-                </p>    
+                    Языки программирования которые я знаю:
+                </p>
                 <ol>
+                    <li>C++</li>
+                    <li>pgSQL</li>
                     <li>HTML</li>
                     <li>CSS</li>
-                    <li>JavaScript</li>
                 </ol>
+                <a class="btn" href="techologies.html">Подробнее</a>
+               
                  <!--ol>li*3>--> 
             </section>
         </div>
