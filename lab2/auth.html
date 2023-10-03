@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Авторизация</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="button">
+            <a href="index.html" class="btn">Обратная связь</a>
+        </div>
+    </header>
+    <main>
+        <form class="container signInForm" action="https://httpbin.org/post" method="post">
+            <h1>Авторизация</h1>
+            <div class="form-group">
+                <label for="login" class="label">Введите логин:</label>
+                <input type="text" id="login" name="login" placeholder="username" required>
+            </div>
+            <div class="form-group">
+                <label for="pass" class="label">Введите пароль:</label>
+                <input type="password" id="pass" name="pass" placeholder="password" required>
+            </div>
+            <div class="form-group" id="finalCheckBox">
+                <input type="checkbox" id="check" name="check">
+                <label for="check" id="checkboxLabel">Запомнить меня</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="inpbtn" value="Войти">
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

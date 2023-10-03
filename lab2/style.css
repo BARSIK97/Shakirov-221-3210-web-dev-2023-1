@@ -1,0 +1,167 @@
+html {
+    margin: 0;
+}
+
+body {
+    background-color: rgb(37, 37, 38);
+    background-image: url(background.jpg);
+    font-family: 'Open Sans', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container {
+    background-color: rgb(22, 0, 82);
+    box-shadow: 0px 0px 20px black;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container.signInForm {
+    background-color: rgb(22, 0, 82);
+    box-shadow: 0px 0px 20px black;
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px; 
+}
+.button {
+    display: block;
+    backdrop-filter: blur(10px);;
+    border-color: black;
+    box-shadow: 0px 0px 20px black;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.btn {
+    display: block;
+    width: 200px;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.signInForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+* {
+    margin : 10px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+label {
+    color: white;
+    display: block;
+    text-align: center;
+}
+
+input {
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+input#check {
+    display: inline;
+}
+
+input#fio,
+input#email,
+input#login,
+input#pass{
+    border-color: black;
+    border-width: 4px;
+    width: 40%;
+    height: 1.25rem;
+    text-align: center;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+#checkboxLabel {
+    text-align: left;
+    display: inline;
+}
+
+center {
+    color: white;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: inline;
+}
+
+fieldset label {
+    display: inline;
+} 
+.info {
+    color: white;
+    text-align: center;
+}
+div#src {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+fieldset {
+    width: 40%;
+    margin: 0 auto;
+    border-width: 4px;
+}
+
+select {
+
+    font-size: 18px;
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    text-align: center;
+}
+
+textarea {
+    resize: none;
+    display: block;
+    border-color: black;
+    border-width: 4px;
+    margin: 0 auto;
+    width: 50%;
+    font-size: 20px;
+}
+
+input#file {
+    color: white;
+    text-align: center;
+}
+
+input.btn {
+    color: black;
+    border-radius: 10px;
+    width: 25%;
+    height: 3rem;
+    transition: 0.3s;
+}
+
+#finalCheckBox {
+    border-color: black;
+    border-width: 4px;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
