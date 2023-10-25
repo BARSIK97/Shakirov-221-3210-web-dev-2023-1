@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    background-image: url(images/background.png);
+    background-size: cover; /* Масштабирует изображение так, чтобы оно занимало всю видимую область. */
+    background-attachment: fixed; /* Фиксирует фон, чтобы он не прокручивался вместе с контентом. */
+}
+
+.main-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.main-menu li:last-child {
+    margin-right: 0;
+}
+
+
+.header {
+background-color: black;
+color: white;
+padding: 20px 0;
+font-size: 1.5em;
+font-weight: bold;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: column;
+}
+  
+.blockflex {
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+}
+  
+.section {
+    flex: 1;
+}
+
+.survivors{
+    max-width: 40%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.terrors{
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+.aboutgame{
+    background-color: black;
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+
+.main-menu a {
+    text-decoration: none;
+    color: white;
+}
+
+main p {
+    text-align: justify;
+}
+
+.h21{
+    text-align: center;
+}
+p {
+    text-align: center;
+    color:white;
+}
+
+.p1 {
+    margin-left: 40px;
+    text-align: left;
+    color:white;
+}
+
+.text-center {
+text-align: center;
+}
+
+.btn {
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: color 1s, border-color 1s;
+}
+.btn-white {
+    color: rgb(255, 255, 255);
+    border-color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.white-table {
+    border-collapse: collapse;
+  }
+
+.white-table th, .white-table td {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 5px;
+    color: white;
+    text-align: center;
+  }
+
+.white-table th {
+    text-align: left;
+  }
+
+.survivorsf{
+    background-color: black;
+    color: white;
+    margin-top: 500px;
+}
+
+.imagecell{
+    width: 200px;
+    height: 150px;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    margin-top: 30px;
+    padding: 10px 0;
+}

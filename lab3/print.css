@@ -1,0 +1,51 @@
+
+
+.btn {
+    display: none;
+}
+
+
+h1,
+h2,
+p,
+a {
+    font-size: 16px;
+}
+
+
+body,
+header,
+footer,
+main,
+section {
+    margin: 0;
+    padding: 0;
+}
+.footer{
+    border-top: none;
+}
+.text1{
+    width: 30%;
+    border: none;
+    margin-left: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+/* Перенос содержимого на новую страницу */
+@media print {
+    body {
+        page-break-inside: avoid;
+    }
+    .header, .footer, .survivorsf{
+		display: none;
+	}
+}
+
+@page {
+	margin: 10mm 10mm 10mm 20mm;
+}
