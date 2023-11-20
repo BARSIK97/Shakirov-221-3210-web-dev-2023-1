@@ -1,33 +1,43 @@
-"use strict"
+/* eslint-disable max-len */
+"use strict";
 
-// А - 1040, Я - 1071, Ё - 1025
-// а - 1072, я - 1103, ё - 1105 
-
-function cesar(str, shift, action) {
+function cesar(inputStr, shift, action) {
     shift = shift % 33;
-    let lower = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    let upper = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    let res = "";
+    const smallLetters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    const capitalLetters = smallLetters.toUpperCase();
+    let result = "";
 
-    for (let i = 0; i < str.length; i++) {
-        let code = str.charCodeAt(i);
-        if ( code==1025 || code>=1040 && code <= 1071) {
-            res+=String.fromCharCode(code+shift)
+    for (let i = 0; i < inputStr.length; i++) {
+        const character = inputStr[i];
+        const characterCode = character.charCodeAt(0);
+        let alphabet, alphabetIndex;
+        // eslint-disable-next-line max-len
+        if ((characterCode >= 1040 && characterCode <= 1071) || characterCode === 1025) {
+            alphabet = capitalLetters;
+            alphabetIndex = capitalLetters.indexOf(character);
+        } else if ((characterCode >= 1072 && characterCode <= 1103) || characterCode === 1105) {
+            alphabet = smallLetters;
+            alphabetIndex = smallLetters.indexOf(character);
+        } else {
+            result += character;
+            continue;
         }
+
+        if (action === 'encode') {
+            alphabetIndex = (alphabetIndex + shift) % 33;
+        } else if (action === 'decode') {
+            alphabetIndex = (33 + alphabetIndex - shift) % 33;
+        } else {
+            throw new Error("Недопустимое значение параметра action. Используйте 'encode' или 'decode'.");
+        }
+
+        result += alphabet[alphabetIndex];
     }
-    return res;
+
+    return result;
 }
 
-// Пример работы кода
-let strA = "АаБбВвГгДд 123+77=200 Hello, World!"
-let encodedStrA = cesar(strA, 5, 'encode');
-console.log(encodedStrA);
-let decodedStrA = cesar(encodedStrA, 5, 'decode');
-console.log(decodedStrA);
-
-// Расшифровка фразы: "эзтыхз фзъзъз"
-let secret = "эзтыхз фзъзъз";
-let decodedSecret = cesar(secret, 8, 'decode');
-console.log(decodedSecret);
-
-// Ответ: "хакуна матата"
+// Ответ: хакуна матата
+let phrase = "эзтыхз фзъзъз";
+let decodedphrase = cesar(phrase, 8, 'decode');
+console.log(decodedphrase);
