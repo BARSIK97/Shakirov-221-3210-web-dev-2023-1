@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.calc-container {
+    border: 2px solid #000000;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    background-color: #fff;
+    padding: 10px;
+    text-align: right;
+    font-size: 1.5em;
+    height: 80px;
+    overflow: hidden;
+}
+
+.buttons {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.digits, .other {
+    display: flex;
+    flex: 1;
+}
+
+.digits,.other {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+button {
+    border: none;
+    padding: 15px;
+    flex: 10%; /* Определение ширины кнопок */
+    font-size: 1.3em;
+    cursor: pointer;
+    margin: 5px; /* Добавление отступа между кнопками */
+    background-color: rgb(189, 189, 189); /* Цвет фона */
+    color: rgb(0, 0, 0); /* Цвет текста */
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+.separator {
+    width: 2px;
+    background-color: #000000;
+    margin: 10px; /* Подходящий отступ для линии разделения */
+}
