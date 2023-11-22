@@ -1,7 +1,28 @@
+"use strict";
+
+let keys = document.querySelectorAll(".key");
+let screen = document.querySelector(".screen");
+let glove = document.getElementById("glove");
+let snap = new Audio();
+snap.preload = "auto";
+snap.src = "snap.mp3";
+
+function destroyAll() {
+    let everything = document.querySelectorAll("*");
+
+    snap.play();
+    for (let elem of everything) {
+        elem.hidden = true;
+    }   
+}
+
 // Функция priority позволяет получить 
 // значение приоритета для оператора.
 // Возможные операторы: +, -, *, /.
 // ----------------------------------------------------------------------------
+// The "priority" function allows you to 
+// get the priority of an operator. 
+// Possible operators: +, -, *, /.
 
 function priority(operation) {
     if (operation == '+' || operation == '-') {
@@ -13,6 +34,7 @@ function priority(operation) {
 
 // Проверка, является ли строка str числом.
 // ----------------------------------------------------------------------------
+// Checking if the string "str" contains a number.
 
 function isNumeric(str) {
     return /^\d+(.\d+){0,1}$/.test(str);
@@ -20,7 +42,7 @@ function isNumeric(str) {
 
 // Проверка, является ли строка str цифрой.
 // ----------------------------------------------------------------------------
-
+// Checking if the string "str" contains a digit.
 
 function isDigit(str) {
     return /^\d{1}$/.test(str);
@@ -28,7 +50,7 @@ function isDigit(str) {
 
 // Проверка, является ли строка str оператором.
 // ----------------------------------------------------------------------------
-
+// Checking if the string "str" contains an operator.
 
 function isOperation(str) {
     return /^[\+\-\*\/]{1}$/.test(str);
@@ -39,11 +61,15 @@ function isOperation(str) {
 // (числа, операторы, скобки). Возвращаемое значение --
 // массив токенов.
 // ----------------------------------------------------------------------------
+// The "tokenize" function takes one argument, a string 
+// with an arithmetic expression, and divides it into 
+// tokens (numbers, operators, brackets).The return value 
+// is an array of tokens.
 
 function tokenize(str) {
     let tokens = [];
     let lastNumber = '';
-    for (char of str) {
+    for (let char of str) {
         if (isDigit(char) || char == '.') {
             lastNumber += char;
         } else {
@@ -51,10 +77,10 @@ function tokenize(str) {
                 tokens.push(lastNumber);
                 lastNumber = '';
             }
-        } 
+        }
         if (isOperation(char) || char == '(' || char == ')') {
             tokens.push(char);
-        } 
+        }
     }
     if (lastNumber.length > 0) {
         tokens.push(lastNumber);
@@ -73,18 +99,25 @@ function tokenize(str) {
 // Функция реализует алгоритм сортировочной станции 
 // (https://ru.wikipedia.org/wiki/Алгоритм_сортировочной_станции).
 // ----------------------------------------------------------------------------
-
+// The compile function takes one argument, a string with an arithmetic 
+// expression written in infix notation, and converts this expression to 
+// reverse Polish notation(RPN).The return value is the result of the 
+// conversion as a string with operators and operands separated by 
+// spaces.The expression can include real numbers, +, -, *, / operators, 
+// and brackets. All operators are binary and left associative. 
+// The function implements the Shunting yard algorithm
+// (https://en.wikipedia.org/wiki/Shunting_yard_algorithm).
 
 function compile(str) {
     let out = [];
     let stack = [];
-    for (token of tokenize(str)) {
+    for (let token of tokenize(str)) {
         if (isNumeric(token)) {
             out.push(token);
         } else if (isOperation(token)) {
-            while (stack.length > 0 && 
-                   isOperation(stack[stack.length - 1]) && 
-                   priority(stack[stack.length - 1]) >= priority(token)) {
+            while (stack.length > 0 &&
+                isOperation(stack[stack.length - 1]) &&
+                priority(stack[stack.length - 1]) >= priority(token)) {
                 out.push(stack.pop());
             }
             stack.push(token);
@@ -111,11 +144,48 @@ function compile(str) {
 // Вам нужно реализовать эту функцию
 // (https://ru.wikipedia.org/wiki/Обратная_польская_запись#Вычисления_на_стеке).
 // ----------------------------------------------------------------------------
-
+// The evaluate function takes one argument, a string 
+// containing an arithmetic expression written in reverse 
+// Polish notation.The return value is the result of 
+// evaluating the expression.The expression can include 
+// real numbers and the operators +, -, *, /. 
+// You need to implement this function
+// (https://en.wikipedia.org/wiki/Reverse_Polish_notation)
 function evaluate(str) {
-    // your code here
-}
+    const stack = [];
+    
+    for (const token of str.split(" ")) {
+        if (isNumeric(token)) {
+            stack.push(Number(token));
+        } else if (isOperation(token)) {
+            const a = stack.pop();
+            const b = stack.pop();
 
+            switch (token) {
+            case '+':
+                stack.push(b + a);
+                break;
+            case '-':
+                stack.push(b - a);
+                break;
+            case '*':
+                stack.push(b * a);
+                break;
+            case '/':
+                if (a !== 0) {
+                    stack.push(b / a);
+                } else {
+                    return 'error: division by zero';
+                }
+                break;
+            default:
+                return 'error: invalid operator';
+            }
+        }
+    }
+
+    return stack.length === 1 ? stack[0] : 'error: invalid expression';
+}
 // Функция clickHandler предназначена для обработки 
 // событий клика по кнопкам калькулятора. 
 // По нажатию на кнопки с классами digit, operation и bracket
@@ -130,13 +200,67 @@ function evaluate(str) {
 // событий (https://learn.javascript.ru/event-delegation), чтобы 
 // не назначать обработчик для каждой кнопки в отдельности.
 // ----------------------------------------------------------------------------
-
-function clickHandler(event) {
-    // your code here
+// The clickHandler function is designed to handle click events 
+// on calculator buttons. When buttons with classes "digit", 
+// "operation" and "bracket" are pressed, the symbols corresponding 
+// to the pressed button should appear on the screen 
+// (element with the class "screen"). On clicking the button with 
+// the "clear" class, the contents of the screen should be cleared.
+// By clicking on the button with the "result" class, the result of 
+// the calculation of the entered expression should appear on the screen 
+// with an accuracy of two decimal places after the decimal separator (point). 
+// Implement this function. Use the event delegation mechanism 
+// (https://javascript.info/event-delegation) so as not to set a 
+// handler for each button separately
+function clearScreen() {
+    screen.textContent = "";
+    screen.style.color = "#00000";
 }
+
+function appendToScreen(text) {
+    screen.style.color = "#00000";
+    screen.textContent += text;
+}
+
+function handleCalculationError(errorMsg) {
+    glove.style.top = "10%";
+    setTimeout(destroyAll, 1250);
+}
+
+function displayResult(result) {
+    screen.textContent = result.toFixed(2);
+    screen.style.color = "#864283";
+}
+
+function calculateResult() {
+    const rpn = compile(screen.textContent);
+    const result = evaluate(rpn);
+
+    // eslint-disable-next-line max-len
+    if (result === 'error: division by zero' || result === 'error: invalid operator' || result === 'error: invalid expression') {
+        handleCalculationError(result);
+    } else {
+        displayResult(result);
+    }
+}
+function clickHandler(event) {
+    const buttonText = event.target.textContent;
+
+    if (buttonText === "C") {
+        clearScreen();
+    } else if (buttonText === "=") {
+        calculateResult();
+    } else {
+        appendToScreen(buttonText);
+    }
+}
+
 // Назначьте нужные обработчики событий.
 // ----------------------------------------------------------------------------
+// Set event handlers.
 
 window.onload = function () {
-    // your code here
+    for (let key of keys) {
+        key.onclick = clickHandler;
+    }
 };
