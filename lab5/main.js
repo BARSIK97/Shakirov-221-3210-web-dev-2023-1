@@ -156,12 +156,14 @@ function searchBtnHandler(event) {
 }
 document.querySelector('.search-btn').onclick = searchBtnHandler;
 function perPageBtnHandler(event) {
-    downloadData(1);
+    let saveq = document.querySelector('.search-field').value;
+    downloadData(1, saveq);
 }
     
 function pageBtnHandler(event) {
     if (event.target.dataset.page) {
-        downloadData(event.target.dataset.page);
+        let saveq = document.querySelector('.search-field').value;
+        downloadData(event.target.dataset.page, saveq);
         window.scrollTo(0, 0);
     }
 }

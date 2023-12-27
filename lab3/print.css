@@ -1,49 +1,41 @@
 
-
-.btn {
-    display: none;
-}
-
-
-h1,
-h2,
-p,
-a {
-    font-size: 16px;
-}
-
-
-body,
-header,
-footer,
-main,
-section {
-    margin: 0;
-    padding: 0;
-}
-.footer{
-    border-top: none;
-}
-.text1{
-    width: 30%;
-    border: none;
-    margin-left: 0;
-    padding: 0;
-    display: inline-block;
-}
-
-.section {
-    margin-bottom: 20px;
-}
-
-/* Перенос содержимого на новую страницу */
 @media print {
     body {
         page-break-inside: avoid;
     }
-    .header, .footer, .survivorsf{
+    .footer, .survivorsf, a{
 		display: none;
 	}
+    .btn {
+        display: none !important;
+    }
+    
+    h1,
+    h2,
+    p
+     {
+        font-size: 16px;
+        color:rgb(0, 0, 0) !important;
+    }
+    
+    
+    body,
+    header,
+    footer,
+    main,
+    section {
+        margin: 0;
+        padding: 0;
+        color: black!important;
+    }
+    
+    .white-table th, .white-table td{
+        color: black!important;
+    }
+    .section {
+        margin-bottom: 20px;
+        color: black!important;
+    }
 }
 
 @page {
