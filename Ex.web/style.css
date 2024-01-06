@@ -1,23 +1,10 @@
-.pagination {
-    display: flex;
-    justify-content: center; /* Центрирует элементы внутри контейнера */
-    align-items: center; /* Центрирует элементы по вертикали, если надо */
-}
-
-.pagination .spacer {
-    display: inline-block;
-    width: 2em; 
+.realtor {
+    display: none; /* Скрыть элементы по-умолчанию */
 }
 
 .table {
     margin-top: 1em;
 }
-
-.button-clicked {
-    background-color: #089111; /* Цвет кнопки после нажатия */
-    color: white; /* Цвет текста в кнопке после нажатия */
-}
-
 .form-label {
     margin-top: 2em;
 }

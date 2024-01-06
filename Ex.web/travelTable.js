@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable max-len */
 document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=287a1b11-36b0-4af6-854a-a2a9ad26525c';
     let currentPage = 1;
@@ -5,9 +7,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const rangeSize = 9;
     let totalItems;
 
+    const tableBody = document.querySelector('.table tbody');
+    tableBody.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('select-button')) {
+            const buttons = document.querySelectorAll('.select-button');
+            buttons.forEach(button => {
+                button.classList.remove('button-clicked'); // Снимаем выделение со всех кнопок
+            });
+            e.target.classList.add('button-clicked'); // Выделяем нажатую кнопку
+            const objectId = e.target.closest('tr').getAttribute('data-object-id'); // Получаем ID объекта из атрибута строки
+            loadRelatedData(objectId);// Загрузка связанных данных для выбранного объекта
+            document.querySelector('.realtor.table.table-bordered').style.display = 'block';
+            document.querySelector('.realtor').style.display = 'block';
+        }
+    });
+    
+    loadTableData(apiUrl, currentPage);
+
     function loadTableData(url, page) {
         const xhr = new XMLHttpRequest();
-        // Clears the pagination to avoid duplicate buttons
         const paginationContainer = document.querySelector('.pagination');
         paginationContainer.innerHTML = '';
 
@@ -24,28 +42,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     const endIndex = startIndex + itemsPerPage;
                     // Добавление данных в таблицу для текущей страницы
                     const pageData = data.slice(startIndex, endIndex);
-
                     pageData.forEach(item => {
-                        const row = `<tr>
-                                        <td>${item.name}</td>
-                                        <td>${item.description}</td>
-                                        <td colspan="3">${item.mainObject}</td>
-                                        <td><button type="button" class="select-button">Выбрать</button></td>
-                                     </tr>`;
-                        tableBody.innerHTML += row;
+                        const row = document.createElement('tr');
+                        row.setAttribute('data-object-id', item.id);
+                        row.innerHTML = `<td>${item.name}</td>
+                                         <td>${item.description}</td>
+                                         <td colspan="2">${item.mainObject}</td>
+                                         <td></td>`; // Вставляем ячейки без кнопки
+                
+                        // Создаём и добавляем кнопку "Выбрать" с классами Bootstrap
+                        const selectButtonCell = row.querySelector('td:last-child');
+                        const selectButton = document.createElement('button');
+                        selectButton.type = 'button';
+                        selectButton.className = 'btn btn-primary select-button';
+                        selectButton.textContent = 'Выбрать';
+                        selectButtonCell.appendChild(selectButton);
+                
+                        tableBody.appendChild(row);
                     });
                     updatePaginationButtons();
-                    tableBody.addEventListener('click', function(e) {
-                        if (e.target && e.target.classList.contains('select-button')) {
-                            const buttons = document.querySelectorAll('.select-button');
-                            buttons.forEach(button => {
-                                if (button !== e.target) {
-                                    button.classList.remove('button-clicked');
-                                }
-                            });
-                            e.target.classList.toggle('button-clicked');
-                        }
-                    });
                 } else {
                     console.error('Ошибка при получении данных:', xhr.status, xhr.statusText);
                 }
@@ -54,78 +69,64 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.open('GET', url, true);
         xhr.send();
     }
-
     function updatePaginationButtons() {
         const paginationContainer = document.querySelector('.pagination');
-        paginationContainer.innerHTML = ''; // Очисщаем перед повторным добавлением
+        paginationContainer.innerHTML = '';
     
         // Загрузка общего числа страниц
         const totalPages = Math.ceil(totalItems / itemsPerPage);
-        const totalRanges = Math.ceil(totalPages / rangeSize);
         const currentRange = Math.ceil(currentPage / rangeSize);
+        paginationContainer.classList.add('pagination');
+    
+        // Создаем навигационный список для пагинации
+        const navList = document.createElement('ul');
+        navList.className = 'pagination justify-content-center';
+    
+        // Для создания кнопок в пагинации теперь используем элементы 'li' и 'a' соответственно
+        const createBootstrapListItem = (page, isDisabled = false, isCurrent = false, text = page) => {
+            const listItem = document.createElement('li');
+            listItem.className = `page-item ${isCurrent ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`;
+            
+            const linkItem = document.createElement('a');
+            linkItem.className = 'page-link';
+            linkItem.href = '#';
+            linkItem.textContent = text;
+    
+            if (!isDisabled && !isCurrent) {
+                linkItem.addEventListener('click', () => changePage(page));
+            }
+            
+            listItem.appendChild(linkItem);
+            return listItem;
+        };
     
         // Кнопка "Первая страница"
         if (currentPage > 1) {
-            const firstPageBtn = document.createElement('button');
-            firstPageBtn.textContent = '<< Первая страница';
-            firstPageBtn.addEventListener('click', function() {
-                changePage(1);
-            });
-            paginationContainer.appendChild(firstPageBtn);
+            navList.appendChild(createBootstrapListItem(1, false, false, '<< Первая страница'));
         }
-        // Spacer после кнопки "Первая страница" и перед пагинацией
-        const spacer1 = document.createElement('span');
-        spacer1.className = 'spacer';
-        paginationContainer.appendChild(spacer1);
     
         // Кнопка для перехода на предыдущий набор страниц
-        if (currentRange > 1) {
-            const prevRangeBtn = document.createElement('button');
-            prevRangeBtn.textContent = '<';
-            prevRangeBtn.addEventListener('click', function() {
-                changePage((currentRange - 2) * rangeSize + 1);
-            });
-            paginationContainer.appendChild(prevRangeBtn);
+        if (currentPage > 1) {
+            navList.appendChild(createBootstrapListItem(currentPage - 1, false, false, '<'));
         }
     
         // Создание номерных кнопок для страниц
-        const startPage = (currentRange - 1) * rangeSize + 1;
-        const endPage = Math.min(startPage + rangeSize - 1, totalPages);
-    
-        for (let i = startPage; i <= endPage; i++) {
-            const button = document.createElement('button');
-            button.textContent = i;
-            button.addEventListener('click', function() {
-                changePage(i);
-            });
-            if (currentPage === i) {
-                button.disabled = true; // Disable the current page button
-            }
-            paginationContainer.appendChild(button);
+        for (let i = 1; i <= totalPages; i++) {
+            navList.appendChild(createBootstrapListItem(i, false, currentPage === i));
         }
     
-        // Кнопка для перехода на следующий набор страниц
-        if (currentRange < totalRanges) {
-            const nextRangeBtn = document.createElement('button');
-            nextRangeBtn.textContent = '>';
-            nextRangeBtn.addEventListener('click', function() {
-                changePage(currentRange * rangeSize + 1);
-            });
-            paginationContainer.appendChild(nextRangeBtn);
+        // Кнопка для перехода на следующую страницу
+        if (currentPage < totalPages) {
+            navList.appendChild(createBootstrapListItem(currentPage + 1, false, false, '>'));
         }
-
-        const spacer2 = document.createElement('span');
-        spacer2.className = 'spacer';
-        paginationContainer.appendChild(spacer2);
+    
         // Кнопка "Последняя страница"
         if (currentPage < totalPages) {
-            const lastPageBtn = document.createElement('button');
-            lastPageBtn.textContent = 'Последняя траница >>';
-            lastPageBtn.addEventListener('click', function() {
-                changePage(totalPages);
-            });
-            paginationContainer.appendChild(lastPageBtn);
+            navList.appendChild(createBootstrapListItem(totalPages, false, false, 'Последняя страница >>'));
         }
+    
+        // Прикрепляем созданный навигационный список к контейнеру пагинации
+        paginationContainer.appendChild(navList);
     }    
 
     window.selectObject = function(objectName) {
@@ -140,3 +141,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Загрузка начальных данных
     loadTableData(apiUrl, currentPage);
 });
+
+// Функция для загрузки и заполнения второй таблицы данными, связанными с выбранным объектом
+function loadRelatedData(id) {
+    const relatedDataUrl = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${id}/guides?api_key=287a1b11-36b0-4af6-854a-a2a9ad26525c`;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', relatedDataUrl, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText); //API возвращает JSON
+            const relatedTableBody = document.querySelector('.realtor.table.table-bordered  tbody');
+            relatedTableBody.innerHTML = ''; // Очищаем текущее содержимое таблицы
+
+            // Заполняем таблицу данными, полученными от API
+            data.forEach(function(item) {
+                const row = `<tr>
+                    <td></td>
+                    <td>${item.name}</td>
+                    <td>${item.language}</td>
+                    <td>${item.workExperience}</td>
+                    <td colspan="3">${item.pricePerHour}</td>
+                </tr>`;
+                relatedTableBody.innerHTML += row;
+            });
+        } else if (xhr.readyState === 4) {
+            console.error('Ошибка при получении связанных данных:', xhr.status, xhr.statusText);
+        }
+    };
+    xhr.send();
+}
