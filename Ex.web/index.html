@@ -84,7 +84,7 @@
         </div>
         </selection>
         
-        <section id="Why" class="bg-white">
+        <section class="travelTable">
             <label for="FormControlInput1" class="form-label"><h3>Список пешеходных маршрутов</h3></label>
             <div class="row">
              <div class="col-lg-2 col-md-2">
@@ -112,40 +112,121 @@
                 </tbody>
               </table>
               <div class="pagination"></div>
-              <script src="travelTable.js"></script>
+              <script src="main.js"></script>
         </section>
 
-        <section id="Why" class="realtor">
-            <label for="FormControlInput1" class="form-label1"><h3>Достпуные гиды по маршруту Название маршрута</h3></label>
-            <div class="row">
-             <div class="col-lg-2 col-md-2">
-              <input type="text" class="form-control col-6 text-center" id="FormControlInput1" placeholder="Поиск по названию">
-            </div>
-            <div class="col-lg-1 col-md-1">
-              <select name="Основной объект"class="form-select form-select-sm col-6" aria-label=".form-select-sm">
-                <option value="1">Один</option>
-                <option value="2">Два</option>
-                <option value="3">Три</option>
-              </select>
-            </div>  
-        </section>
-        <section>
-            <table class="realtor table table-bordered ">
+        <section class="realtor">
+          <div class="container text-center">
+            <label for="FormControlInput1" class="form-label mt-3"><h3>Достпуные гиды по маршруту Название маршрута</h3></label>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-auto col-md-auto mb-3">
+             <input type="text" class="form-control col-6 text-center" id="FormControlInput1" placeholder="Языки">
+           </div>
+           <div class="col-lg-1 col-md-1 py-1">
+             <select name="Основной объект"class="form-select form-select-sm col-6" aria-label=".form-select-sm">
+               <option value="1">Один</option>
+               <option value="2">Два</option>
+               <option value="3">Три</option>
+             </select>
+           </div>
+
+          <div class="row justify-content-center">
+            
+            <div class="col-auto">
+              <table class="realtor table table-bordered ">
                 <thead>
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">ФИО</th>
                     <th scope="col">Языки</th>
                     <th scope="col">Опыт работы</th>
-                    <th scope="col" colspan="3">Стоимость услуги в час</th>
+                    <th scope="col">Стоимость услуги в час</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                </tbody>
+                </tbody>  
               </table>
-              <script src="travelTable.js"></script>
-        </section>
-
+              <script src="main.js"></script>
+            </div>
+          </div>
+          <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="applyModalLabel">Оформление заявки</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="applicationForm">
+                    <div class="row mb-2">
+                      <div class="col-lg-auto col-md-auto">
+                      <label for="selectedRoute" class="form-label">Название маршрута:</label>
+                      </div>
+                      <div class="col-lg-auto col-md-auto">
+                      <input type="text" class="form-control fw-bolder" id="selectedRoute" placeholder="Маршрут" readonly>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-lg-3 col-md-3">
+                      <label for="guideName" class="form-label">ФИО гида:</label>
+                      </div>
+                      <div class="col-lg-auto col-md-auto">
+                      <input type="text" class="form-control fw-bolder" id="guideName" placeholder="ФИО гида" readonly>
+                      </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-4 py-3">
+                      <label for="excursionDate" class="form-label">Дата экскурсии:</label>
+                      <input type="date" class="form-control mt-2" id="excursionDate">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="startTime" class="form-label">Время начала экскурсии:</label>
+                      <input type="time" class="form-control" id="startTime" min="09:00" max="23:00" step="1800">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="durationSelect" class="form-label">Длительность экскурсии:</label>
+                      <select class="form-select" id="durationSelect">
+                        <option value="1">1 час</option>
+                        <option value="2">2 часа</option>
+                        <option value="3">3 часа</option>
+                      </select>
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="col-md-4 py-3">
+                          <label for="groupSize" class="form-label">Количество человек в группе:</label>
+                          <input type="number" class="form-control" id="groupSize" min="1" max="20">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <h5>Дополнительные опции заказа:</h5>
+                      <div class="row">
+                        <div class="form-check col-lg-6">
+                          <input class="form-check-input" type="checkbox" value="" id="additionalOption1">
+                          <label class="form-check-label" for="additionalOption1">Cкидка для пенсионеров<p class="fw-light">Стоимость уменьшается на 25%.</p></label>
+                        </div>
+                        <div class="form-check col-lg-6">
+                          <input class="form-check-input" type="checkbox" value="" id="additionalOption1">
+                          <label class="form-check-label" for="additionalOption1">Трансфер до ближайших станций метро после экскурсии<p class="fw-light">Увеличивает стоимость на
+                            25% в выходные дни и на 30% в будние</p></label>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="totalCost" class="form-label">Итоговая стоимость:</label>
+                      <input type="text" class="form-control" id="totalCost" readonly>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                      <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
     </main>
     <footer></footer>
     <script src="https://kit.fontawesome.com/3bfe4f3389.js" crossorigin="anonymous"></script>
