@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             selectButton.textContent = 'Выбрать';
             selectButtonCell.appendChild(selectButton);
             tableBody.appendChild(row);
+            
         });
     }    
     function updatePaginationButtons(totalFilteredItems) {
@@ -151,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
         reloadFilteredData(currentSearchTerm, currentMainObjectFilter);
     });
 
-
     const objectFilterSelect = document.querySelector('select[name="Основной объект"]');
     
     objectFilterSelect.addEventListener('change', function(e) {
@@ -161,13 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     loadTableData(apiUrl, currentPage, currentSearchTerm, currentMainObjectFilter);
-
     const languageFilterSelect = document.querySelector('select[name="Языки экскурсии"]');
     let minWorkExperience = null;
     let maxWorkExperience = null;
     function applyFilters() {
         const languageSelected = document.querySelector('select[name="Языки экскурсии"]').value;
-        const guideRows = document.querySelectorAll('.realtor.table tbody tr');
+        const guideRows = document.querySelectorAll('.guide.table tbody tr');
         guideRows.forEach(row => {
             const guideLanguage = row.querySelector('td:nth-child(3)').textContent;
             const workExperience = parseInt(row.querySelector('td:nth-child(4)').textContent, 10);
@@ -208,13 +207,12 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-                const relatedTableBody = document.querySelector('.realtor.table.table-bordered  tbody');
+                const relatedTableBody = document.querySelector('.guide.table.table-bordered  tbody');
                 relatedTableBody.innerHTML = '';
                 data.forEach(function(item) {
-                    const profileImagePath = "images/realtors.png";
-                    
+                    const profileImage = "images/guides.png";
                     const row = `<tr>
-                    <td><img src="${profileImagePath}" alt="Profile" class="img-fluid profile-pic"></td>
+                    <td><img src="${profileImage}" alt="Profile" class="img-fluid profile-pic"></td>
                     <td>${item.name}</td>
                     <td>${item.language}</td>
                     <td>${item.workExperience}</td>
@@ -239,10 +237,22 @@ document.addEventListener('DOMContentLoaded', function() {
             buttons.forEach(button => {
                 button.classList.remove('button-clicked'); 
             });
+            e.target.classList.add('button-clicked');
+            const selectedRow = e.target.closest('tr');
+            
+          
+            const previouslySelectedRow = document.querySelector('.table-active');
+            selectedRow.classList.add('table-active');
+            if (previouslySelectedRow) {
+                previouslySelectedRow.classList.remove('table-active');
+            }
+           
+           
             e.target.classList.add('button-clicked'); 
             const routeName = e.target.closest('tr').querySelector('td:nth-child(1)').textContent;
             const applicationFormInput = document.getElementById('selectedRoute');
             const routeNameChange = document.getElementById('routeNameChange');
+
             if (applicationFormInput) {
                 applicationFormInput.placeholder = routeName;
                 localStorage.setItem('selectedroutename', routeName);
@@ -253,8 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const objectId = e.target.closest('tr').getAttribute('data-object-id'); 
             selectedRouteId = objectId;
             loadRelatedData(objectId);
-            document.querySelector('.realtor.table.table-bordered').style.display = 'block';
-            document.querySelector('.realtor').style.display = 'block';
+            document.querySelector('.guide.table.table-bordered').style.display = 'block';
+            document.querySelector('.guide').style.display = 'block';
 
         }
     });
@@ -265,8 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
             applyButtonContainer = document.createElement('div');
             applyButtonContainer.className = 'button-container mt-3 d-flex justify-content-center';
             applyButtonContainer.innerHTML = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applyModal">Оформить заказ</button>';
-            const realtorTableContainer = document.querySelector('.realtor.table.table-bordered');
-            realtorTableContainer.after(applyButtonContainer);
+            const guideTableContainer = document.querySelector('.guide.table.table-bordered');
+            guideTableContainer.after(applyButtonContainer);
         }    
     }
 
@@ -282,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    const guideTableBody = document.querySelector('.realtor.table.table-bordered tbody'); 
+    const guideTableBody = document.querySelector('.guide.table.table-bordered tbody'); 
     guideTableBody.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('guide-select-button')) {
             const guideButtons = document.querySelectorAll('.guide-select-button');
@@ -290,8 +300,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.classList.remove('button-clicked');
             });
             e.target.classList.add('button-clicked'); 
+            const selectedRow = e.target.closest('tr');
+            const previouslySelectedRow = document.querySelector('.table-active');
+            selectedRow.classList.add('table-active');
+            if (previouslySelectedRow) {
+                previouslySelectedRow.classList.remove('table-active');
+            }
             selectedGuideId = e.target.closest('tr').querySelector('td:nth-child(1)').textContent;
-            localStorage.setItem('selectedGuideId', selectedGuideId);
             const guideName = e.target.closest('tr').querySelector('td:nth-child(2)').textContent;
             selectedGuideCost = parseFloat(e.target.closest('tr').querySelector('td:nth-child(5)').textContent);
             document.getElementById('guideName').placeholder = guideName;
@@ -379,15 +394,11 @@ document.addEventListener('DOMContentLoaded', function() {
     } 
 
     function closeForm() {
-        // Предполагаем, что атрибут id вашего модального окна - 'applyModal'
         const applyModalElement = document.getElementById('applyModal');
         const applyModal = bootstrap.Modal.getInstance(applyModalElement);
-        
-        // Проверяем, был ли экземпляр модального окна уже создан
         if (applyModal) {
             applyModal.hide();
         } else {
-            // Если нет, создаем новый экземпляр и закрываем его
             const newApplyModal = new bootstrap.Modal(applyModalElement, { keyboard: true });
             newApplyModal.hide();
         }
@@ -403,8 +414,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const optionSecond = document.getElementById('additionalOption2').checked ? 1 : 0;
         const date = document.getElementById('excursionDate').value;
         const time = document.getElementById('startTime').value;
-        const guideRow = document.querySelector('.realtor.table.table-bordered tbody .button-clicked').parentNode.parentNode;
+        const guideRow = document.querySelector('.guide.table.table-bordered tbody .button-clicked').parentNode.parentNode;
         const guideId = guideRow.querySelector('td:nth-child(7)').textContent;
+        localStorage.setItem('selectedRouteId', routeId);
 
         const formData = new FormData();
         formData.append('date', date);
@@ -432,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(formData);
     }
     applicationForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Добавьте это, чтобы предотвратить стандартную отправку формы
+        event.preventDefault();
         sendApplication();
     });
 });

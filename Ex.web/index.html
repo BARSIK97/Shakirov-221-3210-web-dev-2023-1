@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Exam</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
 
   <body>
     <header> 
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <a class="navbar-brand" href="#TRAVELLING.ru">
             <img  class="img-fluid d-inline-block align-text-top" src="images/icon.png" alt="icon" width="30" height="24">TRAVELLING.ru
@@ -30,37 +33,40 @@
     </header>
 
     <main>
-      <section id ="TRAVELLING.ru" class="">
+      <section id ="TRAVELLING.ru">
         <div class="container py-5">
           <div class="row ">
             <div class="col-lg-6 col-md-12 py-5">
               <h2 class="text-center">TRAVELLING.ru</h2>
               <div class="line mx-auto my-3"></div>
-              <p class="fs-4">Компания с огромномы выбором маршрутов, можно найти маршрут на любой вкус. Мы гордимся нашем штатом гидов, знающих множество разных языков и с большим стажем работы в данной сфере. </p>
+              <p class="fs-4">Компания с огромным выбором маршрутов, можно найти маршрут на любой вкус. Мы гордимся нашем штатом гидов, знающих множество разных языков и с большим стажем работы в данной сфере. </p>
             </div>
             <div class="col-lg-6 col-md-12 text-center">
-              <img class="img-fluid d-inline-block align-text-top" src="images/icon.png" alt="icon" style="max-width: 300px; max-height: 300px;">
+              <img class="img-fluid d-inline-block align-text-top" src="images/route.png" alt="icon" style="max-width: 300px; max-height: 300px;">
             </div>
           </div>
         </div>
       </section>
 
-        <section id ="Why" class="">
+        <section id ="Why">
             <div class="container py-2">
-              <div class="col-lg-12 col-md-12">
-                <h2 class="text-center">Почему именно мы?</h2>
-                <div class="line mx-auto my-1"></div>
+              <div class="bg-light">
+                <div class="col-lg-12 col-md-12">
+                  <h2 class="text-center">Почему именно мы?</h2>
+                  <div class="line mx-auto my-1"></div>
+                </div>
               </div>
-            </div>
-            <div class="container py-2 text-center">
-                <div class="row py-3">
-                  <div class="col">Лучшие цены в Москве</div>
-                  <div class="col">Полная поддержка до и после покупки 24/7</div>
-                  <div class="col">Гиды знаю все о своем деле</div>
-                  <div class="col">Огромный список пешеходных маршрутов</div>
-                </div>
-                  <div class="col-lg-12 col-md-12 fst-italic fs-4 mt-3">Проложите пешеходный маршрут своей мечты!</div>
-                </div>
+              <div class="container py-2 text-center">
+                  <div class="row py-3">
+                    <div class="col"><h5>Лучшие цены в Москве</h5></div>
+                    <div class="col"><h5>Полная поддержка до и после покупки 24/7</h5></div>
+                    <div class="col"><h5>Гиды знаю все о своем деле</h5></div>
+                    <div class="col"><h5>Огромный список пешеходных маршрутов</h5></div>
+                  </div>
+                    <div class="col-lg-12 col-md-12 fst-italic fs-4 mt-3"><h3>Проложите пешеходный маршрут своей мечты!</h3></div>
+                  </div>
+  
+              </div>
               </section>
               <section class="travelTable mt-2 mb-2">
                 <label for="FormControlInput2" class="form-label"><h3>Список пешеходных маршрутов</h3></label>
@@ -96,7 +102,7 @@
               <div class="pagination d-flex justify-content-center"></div>
             </section>
 
-        <section class="realtor">
+        <section class="guide">
           <div class="container text-center">
             <label for="routeNameChange" class="form-label mt-3"><h3>Доступные гиды по маршруту <a class="link-dark text-decoration-underline" id="routeNameChange">Название маршрута</a></h3></label>
           </div>
@@ -116,7 +122,7 @@
           </div>
           <div class="row justify-content-center"> 
             <div class="col-auto table-responsive">
-              <table class="realtor table table-bordered">
+              <table class="guide table table-bordered">
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -211,7 +217,32 @@
           </div>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+      <div class=".col-md-3.col-6 mt-5">
+        <h4>Контакты</h4>
+        <ul class="list-unstyled">
+            <li> <a href="tel:+79510698722">+7 (919) 649 44 77</a></li>
+        </ul>
+    </div>
+    <h4>Мы в сети</h4>
+    <div class="footer-icons">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x"></i>
+        </span>
+        <a href="#">Twitter</a><br>
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+        </span>
+            <a href="#">Youtube</a><br>
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                <i class="fa fa-square-o fa-stack-2x"></i>
+            </span>
+            <a href="#">Facebook</a><br>
+                </div>
+    </footer>
     <script src="main.js"></script>
     <script src="https://kit.fontawesome.com/3bfe4f3389.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
