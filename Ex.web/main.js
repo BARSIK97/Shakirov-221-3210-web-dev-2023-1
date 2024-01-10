@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* */
+
 document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=287a1b11-36b0-4af6-854a-a2a9ad26525c';
     let currentPage = 1;
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let maxWorkExperience = null;
     function applyFilters() {
         const languageSelected = document.querySelector('select[name="Языки экскурсии"]').value;
-        const guideRows = document.querySelectorAll('.guide.table tbody tr');
+        const guideRows = document.querySelectorAll('.realtor.table tbody tr');
         guideRows.forEach(row => {
             const guideLanguage = row.querySelector('td:nth-child(3)').textContent;
             const workExperience = parseInt(row.querySelector('td:nth-child(4)').textContent, 10);
@@ -207,10 +208,10 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-                const relatedTableBody = document.querySelector('.guide.table.table-bordered  tbody');
+                const relatedTableBody = document.querySelector('.realtor.table.table-bordered  tbody');
                 relatedTableBody.innerHTML = '';
                 data.forEach(function(item) {
-                    const profileImage = "images/guides.png";
+                    const profileImage = "images/realtors.png";
                     const row = `<tr>
                     <td><img src="${profileImage}" alt="Profile" class="img-fluid profile-pic"></td>
                     <td>${item.name}</td>
@@ -263,8 +264,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const objectId = e.target.closest('tr').getAttribute('data-object-id'); 
             selectedRouteId = objectId;
             loadRelatedData(objectId);
-            document.querySelector('.guide.table.table-bordered').style.display = 'block';
-            document.querySelector('.guide').style.display = 'block';
+            document.querySelector('.realtor.table.table-bordered').style.display = 'block';
+            document.querySelector('.realtor').style.display = 'block';
 
         }
     });
@@ -275,8 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
             applyButtonContainer = document.createElement('div');
             applyButtonContainer.className = 'button-container mt-3 d-flex justify-content-center';
             applyButtonContainer.innerHTML = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applyModal">Оформить заказ</button>';
-            const guideTableContainer = document.querySelector('.guide.table.table-bordered');
-            guideTableContainer.after(applyButtonContainer);
+            const realtorTableContainer = document.querySelector('.realtor.table.table-bordered');
+            realtorTableContainer.after(applyButtonContainer);
         }    
     }
 
@@ -292,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    const guideTableBody = document.querySelector('.guide.table.table-bordered tbody'); 
+    const guideTableBody = document.querySelector('.realtor.table.table-bordered tbody'); 
     guideTableBody.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('guide-select-button')) {
             const guideButtons = document.querySelectorAll('.guide-select-button');
@@ -300,12 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.classList.remove('button-clicked');
             });
             e.target.classList.add('button-clicked'); 
-            const selectedRow = e.target.closest('tr');
-            const previouslySelectedRow = document.querySelector('.table-active');
-            selectedRow.classList.add('table-active');
-            if (previouslySelectedRow) {
-                previouslySelectedRow.classList.remove('table-active');
-            }
             selectedGuideId = e.target.closest('tr').querySelector('td:nth-child(1)').textContent;
             const guideName = e.target.closest('tr').querySelector('td:nth-child(2)').textContent;
             selectedGuideCost = parseFloat(e.target.closest('tr').querySelector('td:nth-child(5)').textContent);
@@ -414,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const optionSecond = document.getElementById('additionalOption2').checked ? 1 : 0;
         const date = document.getElementById('excursionDate').value;
         const time = document.getElementById('startTime').value;
-        const guideRow = document.querySelector('.guide.table.table-bordered tbody .button-clicked').parentNode.parentNode;
+        const guideRow = document.querySelector('.realtor.table.table-bordered tbody .button-clicked').parentNode.parentNode;
         const guideId = guideRow.querySelector('td:nth-child(7)').textContent;
         localStorage.setItem('selectedRouteId', routeId);
 
