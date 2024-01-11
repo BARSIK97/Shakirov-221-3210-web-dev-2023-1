@@ -1,33 +1,44 @@
 .realtor {
-    display: none; 
+    display: none;
 }
+
 a {
     font-size: 25px !important;
 }
+
 body {
     color: #8a8672 !important;
-    background-color: rgb(212, 212, 212) !important; 
+    background-color: rgb(212, 212, 212) !important;
 }
 
 
-.modal{
-    color:  #c7b446 !important; 
+.modal {
+    color: #c7b446 !important;
 }
+
 .table {
     border-color: red;
 }
-h1, h2, h3, h4 {
-    color:red !important;
+
+h1,
+h2,
+h3,
+h4 {
+    color: red !important;
     background-color: rgb(197, 197, 197);
 }
+
 * {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     font-size: 19px;
 }
+
 h5 {
-    color:rgb(184, 157, 70) !important;
+    color: rgb(184, 157, 70) !important;
 }
-.btn-primary, .btn-secondary {
+
+.btn-primary,
+.btn-secondary {
     background-color: #b89b3d !important;
     border-color: #8d7730 !important;
 }
@@ -38,11 +49,13 @@ h5 {
         flex-wrap: wrap;
         justify-content: center;
     }
+
     .pagination li {
         margin: 5px;
         justify-content: center;
     }
 }
+
 .selected-row {
     background-color: #ff0000 !important;
 }
